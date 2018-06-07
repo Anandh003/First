@@ -4,19 +4,23 @@
 #include <stdlib.h>
 int operation(char *s,int begin,int final)
 {
-    char temp[25];
-    int t;
-    for(int i=0;i<final-begin+1;i++)
+    char temp[final-begin];
+    int i;
+
+    for(i=0;i<final-begin+1;i++)
     {
         temp[i]=s[begin+i];
-        t=(int)temp[i];
-       if( (t>90 && t<=96) || (t<=65) || (t>122))
+       // t=(int)temp[i];
+       if( (temp[i]>90 && temp[i]<=96) || (temp[i]<=65) || (temp[i]>122))
+       {
+         printf("\nEXe\n");
              return 0;
+         }
     }
+    temp[i]='\0';
+    //puts(temp);
     for(int i=final,j=0;i>=begin;i--,j++)
         s[i]=temp[j];
-    
-    puts(temp);
     return 1;
 }
 int main() 
@@ -25,20 +29,20 @@ int main()
     char *str;
     scanf("%d\n",&n);
    str=(char *)malloc((n+1)*sizeof(char));  
-    //str=(char *)malloc(sizeof(char)*(n+1));
     scanf("%[^\n]",str);
     for(int i=0;str[i]!='\0';i++)
     {
-        if( (!((str[i+1]>=97 && str[i+1]<=122) || (str[i+1]>=65 && str[i+1]<=90))) && ((str[i]>=97 && str[i]<=122) || (str[i]>=65 && str[i]<=90))) 
+        if( (!((str[i+1]>=97 && str[i+1]<=122) || (str[i+1]>=65 && str[i+1]<=90) || (str[i+1]>=48 && str[i+1]<=57))) && ((str[i]>=97 && str[i]<=122) || (str[i]>=65 && str[i]<=90) || (str[i]>=48 && str[i]<=57) )) 
         {
 
             end=i;
-              printf("%d %d %d\n",i,start,end); 
+            //printf("%d %d %d\n",i,start,end); 
             operation(str,start,end);
-            start=i+2;
-
         }
+        if((!((str[i-1]>=97 && str[i-1]<=122) || (str[i-1]>=65 && str[i-1]<=90) || (str[i-1]>=48 && str[i-1]<=57) ))&&((str[i]>=97 && str[i]<=122) || (str[i]>=65 && str[i]<=90) || (str[i]>=48 && str[i]<=57))) 
+            start=i;
     }
+    puts(str);
 
     return 0;
 }
